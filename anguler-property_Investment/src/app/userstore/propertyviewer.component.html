@@ -1,0 +1,134 @@
+<home-nav></home-nav>
+<div class="main">
+  <div class="card mb-3 imgcard">
+    <img src="{{ property.imageUrl }}" class="card-img-top" alt="..." />
+
+    <div class="address">
+      <div class="addressgraph">
+
+        <address>
+          <span><i class="fa fa-map-marker-alt" style="font-size: 38px;display: block;"></i></span>
+          <strong>{{ property.name }}</strong><br />
+          <span>{{ property.propertyLocation?.street }} , </span>
+          <span>{{ property.propertyLocation?.city }}-</span>
+          <span>{{ property.propertyLocation?.pincode }}</span><br />
+          <span>{{ property.propertyLocation?.state }}</span><br />
+          <span>{{ property.propertyLocation?.country }}</span>
+        </address>
+
+        <div class="graph" style="width:500px;">
+          <!-- <graph-data></graph-data> -->
+        </div>
+      </div>
+      <hr />
+      <div class="propDetails">
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-building"></i> Area</p>
+          {{ property.area }} <sup>SF</sup>
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-tags"></i> Total Cost</p>
+          {{ property.totalCost | currency : "INR" : "symbol" }}
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-chart-line"></i> Share Value</p>
+          {{ property.shareVal | currency : "INR" : "symbol" }}
+        </div>
+
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-sitemap"></i> Total Units</p>
+          {{ property.totalUnits }}
+        </div>
+        <div class="pro">
+          <p class="proHeading">
+            <i class="fa fa-sitemap"></i> Remaining Units
+          </p>
+          {{ property.remainingUnits }}
+        </div>
+      </div>
+      <div class="button">
+
+        <button type="button" class="btn btn-link invest-now-btn " data-toggle="modal"
+          data-target="#investmentInitModal" (click)="openpop()">Buy Now</button>
+        <div style="float: left; margin-left: 3rem;" routerLink="/home" class="btn btn-secondary">
+          Back
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</div>
+<div>
+  <div class="overlay" *ngIf="show">
+    <div class="content">
+      <div class="close" (click)="closepop()" style="cursor: pointer">
+        &times;
+      </div>
+      <div>
+        <strong>{{ property.name }}</strong><br />
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-tags"></i> Total Cost</p>
+          {{ property.totalCost | currency : "INR" : "symbol" : "4.2-2" }}
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-sitemap"></i> Remaining Units</p>
+          {{ property.remainingUnits }}
+        </div>
+
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-sitemap"></i> Share Value</p>
+          {{ property.shareVal | currency : "INR" : "symbol" }}
+        </div>
+
+
+        <div>
+          Required Units:
+          <input class="no-arrows unitInput" type="number" #units="ngModel" [(ngModel)]="order.noOfUnits" [min]="1"
+            max='{{property.remainingUnits}}' required />
+          <div *ngIf="units.touched && units.invalid" class="error"> Please enter the required units</div>
+          <div *ngIf="units.errors?.['min']" class="error">
+            * Please Enter Atleast 1 unit
+          </div>
+          <div *ngIf="units.errors?.['max']" class="error">
+            * Max Purchase units {{property.remainingUnits}}
+          </div>
+        </div>
+
+        Order Price<span style="color: red">
+          {{
+          order.noOfUnits! * property.shareVal! | currency : "INR" : "symbol"
+          }}</span>
+      </div>
+
+      <button type="button" [className]="color"
+        *ngIf="property.remainingUnits != 0 &&  !units.invalid && !units.errors?.['min'] && !units.errors?.['max']"
+        style="text-align: center; margin-top: 1rem" (click)="bookProperty()">
+        {{ isBooked ? "processing" : "Book" }}
+      </button>
+      <button class="btn btn-primary" style="margin-left: 2rem; margin-top: 1rem" (click)="closepop()"
+        routerLink="/home">
+        Cancel
+      </button>
+    </div>
+
+    <div class="cont">
+      <div *ngIf="isBooked" class="popup">
+        <div class="img">
+          <img src="https://th.bing.com/th/id/OIP.c5Ae2jEhX7I8V7cQWxH68wHaHa?pid=ImgDet&w=195&h=195&c=7&dpr=1.5" />
+        </div>
+        <h2>Thank You!</h2>
+        <p>
+          Thank you for placing the order, our team representative will contact you once
+          the order is confirmed
+        </p>
+        <button type="button" (click)="closepop()" routerLink="/home">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

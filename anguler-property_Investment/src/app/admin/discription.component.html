@@ -1,0 +1,142 @@
+<admin-component></admin-component>
+<div class="main">
+  <div class="actions">
+    <div>
+      <button
+        [routerLink]="['/add/edit/', property1.id]"
+        style="
+          margin-right: 0.5rem;
+          padding: 0.2rem 1.2rem;
+          border: none;
+          background-color: white;
+        "
+      >
+        <i class="far fa-edit" style="font-size: 31px;;color: orange;"></i>
+      </button>
+      <button
+        style="border: none; background-color: white"
+        (click)="deleteProperty(property1.id)"
+      >
+        <i
+          class="fa fa-trash"
+          aria-hidden="true"
+          style="color: red; font-size: xx-large"
+        ></i>
+      </button>
+    </div>
+  </div>
+  <div class="card mb-3 imgcard">
+    <img src="{{ property1.imageUrl }}" class="card-img-top" alt="..." />
+    <div class="address">
+      <span><i class="fa fa-map-marker-alt" style="font-size: 38px"></i></span
+      ><span> </span>
+      <address>
+        <strong>{{ property1.name }}</strong
+        ><br />
+        <span>{{ property1.propertyLocation?.street }} , </span>
+        <span>{{ property1.propertyLocation?.city }}-</span>
+        <span>{{ property1.propertyLocation?.pincode }}</span
+        ><br />
+        <span>{{ property1.propertyLocation?.state }}</span
+        ><br />
+        <span>{{ property1.propertyLocation?.country }}</span>
+      </address>
+      <hr />
+      <div class="propDetails">
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-building"></i> Area</p>
+          {{ property1.area }} <sup>SF</sup>
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-tags"></i> Total Cost</p>
+          {{ property1.totalCost }}
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-chart-line"></i> Share Value</p>
+          {{ property1.shareVal }}
+        </div>
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-sitemap"></i> Total Units</p>
+          {{ property1.totalUnits }}
+        </div>
+
+        <div class="pro">
+          <p class="proHeading"><i class="fa fa-sitemap"></i> Remaing Units</p>
+          {{ property1.remainingUnits }}
+        </div>
+
+        <div class="pro">
+          <p class="proHeading">
+            <i class="fa fa-calendar-alt"></i> Start Date
+          </p>
+          {{ property1.startDate | date }}
+        </div>
+        <div class="pro">
+          <p class="proHeading">
+            <i class="fa fa-calendar-alt"></i> modified On
+          </p>
+          {{ property1.modifiedOn | date }}
+        </div>
+        <div class="pro">
+          <p class="proHeading">
+            <i  class="fa fa-thumbs-up" *ngIf="property1.status=='active'"></i><i  class="fa fa-thumbs-down" *ngIf="property1.status=='inactive'"></i> Status
+          </p>
+          {{ property1.status }}
+        </div>
+      </div>
+
+
+      <!--<div class="admin">
+      <div class="admin">
+        <p class="proHeading" style="margin-bottom: 1rem">
+          <i class="fas fa-address-card"></i> Admin Details
+        </p>
+      </div>
+       <div class="admin">
+       <div class="admin">
+        <br />
+        <div
+          class="adminHeading"
+          *ngFor="let admin of property1.admins; let i = index"
+        >
+          <div *ngIf="i == 0">
+            <p class="adminSubHeading"><i class="fas fa-user-alt"></i></p>
+            {{ admin?.adminName }}
+          </div>
+        </div>
+
+        <div
+          class="adminHeading"
+          *ngFor="let admin of property1.admins; let i = index"
+        >
+          <div *ngIf="i == 0">
+            <p class="adminSubHeading"><i  class="far fa-thumbs-up" *ngIf="admin?.status=='active'"></i><i  class="far fa-thumbs-down" *ngIf="admin?.status=='inactive'"></i></p>
+            {{ admin?.status}}
+            {{ admin?.status}}
+          </div>
+        </div>
+      </div>
+      </div> -->
+    </div>
+  </div>
+  <div style="float: left">
+
+    <!-- <button [routerLink]="['/graph/',property1.id]"
+     <button [routerLink]="['/graph/',property1.id]"
+    class="btn btn-info">
+      graphical
+    </button>
+    </button> -->
+
+    <button
+      type="reset"
+      class="btn btn-secondary"
+      routerLink="/admin"
+      style="margin-left: 2rem"
+    >
+      Back
+    </button>
+
+
+  </div>
+</div>
